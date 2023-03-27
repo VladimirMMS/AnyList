@@ -1,0 +1,78 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Item {
+  """Item Id"""
+  id: ID!
+
+  """Item name"""
+  name: String!
+
+  """Item quantity"""
+  quantity: Float!
+
+  """Item quantityUnits"""
+  quantityUnits: String
+}
+
+type User {
+  id: ID!
+  fullName: String!
+  email: String!
+  roles: [String!]!
+  isActive: Boolean!
+  lastUpdateBy: User
+}
+
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
+type Query {
+  items: [Item!]!
+  item(id: String!): Item!
+  users(roles: [validRoles!] = []): [User!]!
+  user(id: ID!): User!
+  revalidate: AuthResponse!
+}
+
+enum validRoles {
+  admin
+  user
+  superUser
+}
+
+type Mutation {
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: ID!): Item!
+  blockUser(id: ID!): User!
+  singUp(signUpInput: SignUpInput!): AuthResponse!
+  login(loginInput: LoginInput!): AuthResponse!
+}
+
+input CreateItemInput {
+  name: String!
+  quantity: Float!
+  quantityUnits: String
+}
+
+input UpdateItemInput {
+  name: String
+  quantity: Float
+  quantityUnits: String
+  id: ID!
+}
+
+input SignUpInput {
+  email: String!
+  fullName: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
